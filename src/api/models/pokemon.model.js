@@ -7,8 +7,8 @@ const Schema = mongoose.Schema
 const pokemonSchema = new Schema({
 
     name: {type: String, required: true},
-    weight: {type: Number, required: true},
     type: {type: String, required: true},
+    weight: {type: Number, required: true},
     height: {type: Number, required: true},
     sprite: {type: String, required: true}
 
