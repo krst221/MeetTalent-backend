@@ -4,7 +4,7 @@ const {connect} = require('./src/utils/db');
 const {isAuth} = require('./src/middlewares/auth');
 
 const gimnasioRouter = require('./src/api/routes/gimnasio.routes');
-const pokemonRouter = require('./src/api/routes/pokemon.route');
+const pokemonRouter = require('./src/api/routes/pokemon.routes');
 
 dotenv.config();
 const PORT = process.env.PORT || 8000;

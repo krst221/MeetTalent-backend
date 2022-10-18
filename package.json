@@ -1,12 +1,12 @@
 {
   "name": "pokemon",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pokemons": "node ./src/seeds/pokemon.seed.js"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +20,14 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krst221/proyectoNode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/krst221/proyectoNode/issues"
+  },
+  "homepage": "https://github.com/krst221/proyectoNode#readme",
+  "description": ""
 }

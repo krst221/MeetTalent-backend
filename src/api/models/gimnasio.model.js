@@ -22,25 +22,7 @@ const gymSchema = new Schema({
 }
     
 );
-//*Validación
 
-gymSchema.pre("save", function(req, res, next){
-    if(!validationEmail(this.email)){
-       console.log({code: 403, message: "Invalid email"})
-       return next();
-    }
-   if(!validationPassword(this.password)){
-        console.log({code: 403, message: "Invalid password"})
-        return next();
-   }
-    this.password = bcrypt.hashSync(this.password, 10);
-    next();
-}) 
-
-
-
-
-
-const Gym = mongoose.model('gym',gymSchema)
+const Gym = mongoose.model('Gym', gymSchema)
 
 module.exports = Gym
