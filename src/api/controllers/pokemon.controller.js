@@ -9,15 +9,25 @@ const getAllPokemons = async (req, res) => {
     }
 };
 
-// const getIdPokemons = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const allPokemons = await Pokemon.find(id);
-//         return res.status(200).json(allPokemons);
-//     } catch (error) {
-//         return res.status(500).json(error)
-//     }
-// };
+const getIdPokemon = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const allPokemons = await Pokemon.find(id);
+        return res.status(200).json(allPokemons);
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+};
+
+const getNamePokemon = async (req, res) => {
+    try {
+        const { name } = req.params;
+        const allPokemons = await Pokemon.find(name);
+        return res.status(200).json(allPokemons);
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+};
 
 const postPokemon = async (req, res) => {
     try {
@@ -61,5 +71,5 @@ const deletePokemon = async (req, res) => {
     }
 };
 
-module.exports = { getAllPokemons, postPokemon, putPokemon, deletePokemon }
+module.exports = { getAllPokemons, getIdPokemon, getNamePokemon, postPokemon, putPokemon, deletePokemon }
 
