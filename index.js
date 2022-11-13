@@ -6,15 +6,13 @@ const { restart } = require('nodemon');
 const cloudinary = require('cloudinary').v2;
 const cors = require('cors');
 
-const gimnasioRouter = require('./src/api/routes/gimnasio.routes');
-const pokemonRouter = require('./src/api/routes/pokemon.routes');
+const userRouter = require('./src/api/routes/user.routes');
+const mailRouter = require('./src/api/routes/mail.routes');
 
 dotenv.config();
 const PORT = process.env.PORT || 8000;
 const app = express();
 connect();
-app.use(express.json({limit: '5mb'}));
-app.use(express.urlencoded({ extended: false }));
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -30,16 +28,24 @@ app.use((req, res, next) => {
 })
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:8000'],
+    origin: ['http://localhost:3000', 'http://localhost:3001'],
     credentials: true
 }))
 
+app.use(express.json({limit: '5mb'}));
+app.use(express.urlencoded({ extended: false }));
 
-app.use('/gimnasios', gimnasioRouter);
 
-app.use('/pokemons', pokemonRouter);
+app.use('/user', userRouter);
 
-app.use('*', (req, res, next) => res.status(404).json('Route not found.'));
+app.use('/mail', mailRouter);
 
+app.use('*', (req, res, next) => res.status(404).json('La ruta seleccionada no existe.'));
+
+app.use((error, req, res, next) => {
+
+    return res.status( error.status || 500 ).json("Error: " + error.message || "Unexpected error");
+
+})
 
 app.listen(PORT, () => console.log(`listening on port: http://localhost:${PORT}`));
