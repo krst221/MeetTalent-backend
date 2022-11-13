@@ -89,10 +89,23 @@ const putUserName = async (req, res) => {
     }
 };
 
+const putUserPicture = async (req, res) => {
+    try {
+        const { _id, picture } = req.body;
+        const UserDb = await User.findByIdAndUpdate(_id, {picture: picture});
+        if (!UserDb) {
+            return res.status(404).json({"message": "User not found"});
+        }
+            return res.status(200).json(UserDb);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+};
+
 const deleteUser = async (req, res) => {
     try {
-        const { id } = req.params;
-        const UserDb = await User.findByIdAndDelete(id);
+        const { _id } = req.body;
+        const UserDb = await User.findByIdAndDelete(_id);
         if (!UserDb) {
             return res.status(404).json({"message": "User not found"});
         }
@@ -102,7 +115,7 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = { register, login, getUser, getUserById, getAllUsers, logout, putUserName, deleteUser }
+module.exports = { register, login, getUser, getUserById, getAllUsers, logout, putUserName, putUserPicture, deleteUser }
 
 
 
