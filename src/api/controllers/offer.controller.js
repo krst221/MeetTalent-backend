@@ -4,9 +4,8 @@ const User = require('../models/user.model');
 
 const addOffer = async (req, res) => {
     try {
-        const {cID} = req.body;
         const newOffer = new Offer (req.body);
-        let company = await Company.findById(cID);
+        let company = await Company.findById(newOffer.company);
         company = await Company.updateOne({_id: company.id}, {$push: {offers: newOffer._id}});
         const createdOffer = await newOffer.save();
         return res.status(200).json(createdOffer);
@@ -14,6 +13,21 @@ const addOffer = async (req, res) => {
         return res.status(500).json(error)
     }
 };
+
+const closeOffer = async (req, res) => {
+    try {
+        const {cId, oId} = req.body;
+        const offer = await Offer.findByIdAndUpdate(oId, {processnum: 100} );
+        if(JSON.parse(JSON.stringify(offer.company)) == cId){
+            console.log(offer._id);
+            const newusers = await User.updateMany({offers: offer._id}, {$pull: {offers: offer._id}})
+            return res.status(200).json(newusers);
+        }
+        else return res.status(500).json(error);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+}
 
 const getAllOffers = async (req, res) => {
     try {
@@ -56,7 +70,7 @@ const deleteOffer = async (req, res) => {
     }
 };
 
-module.exports = { addOffer, getOffer, getOfferById, getAllOffers, deleteOffer }
+module.exports = { addOffer, closeOffer, getOffer, getOfferById, getAllOffers, deleteOffer }
 
 
 

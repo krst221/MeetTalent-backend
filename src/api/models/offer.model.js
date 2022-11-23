@@ -18,6 +18,7 @@ const OfferSchema = new Schema({
     finalists: {type: Number, default: 0},
     sector: {type: String, required: true},
     description: {type: String, required: true},
+    company: {type: Schema.Types.ObjectId, ref: "Company", required: true},
     hackathon: {type: Schema.Types.ObjectId, ref: "Hackathon"},
     users: [{type: Schema.Types.ObjectId, ref: "User"}],
 },{
