@@ -19,7 +19,7 @@ const OfferSchema = new Schema({
     sector: {type: String, required: true},
     description: {type: String, required: true},
     hackathon: {type: Schema.Types.ObjectId, ref: "Hackathon"},
-    userList: [{type: Schema.Types.ObjectId, ref: "User"}],
+    users: [{type: Schema.Types.ObjectId, ref: "User"}],
 },{
     timestamps: true
 }
