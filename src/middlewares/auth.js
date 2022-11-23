@@ -15,7 +15,6 @@ const isAuth = (req, res, next) => {
 
     try {
         var tokenVerified = jwt.verify(token, process.env.JWT_KEY);
-        console.log(tokenVerified);
         req._user = tokenVerified;
     } catch (error) {   
         return res.status(500).json(error);

@@ -69,6 +69,23 @@ const getUserById = async (req, res) => {
     }
 }
 
+const joinOffer = async (req, res) => {
+    try {
+        const {uId, oId} = req.body;
+        let user = await User.findById(uId);
+        let offer = await Offer.findById(oId);
+        const findOffer = await User.find({$and: [{_id: user._id},{offers: offer._id}]});
+        if(findOffer.length > 0) return res.status(500).json(error);
+        else {
+            user = await User.updateOne({_id: user._id}, {$push: {offers: offer._id}});
+            offer = await Offer.updateOne({_id: offer._id}, {$push: {userList: user._id}});
+            return res.status(200).json({user: user, offer: offer});
+        }
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+}
+
 const logout = async (req, res) => {
     try {
         return res.status(200).json({token: null});
@@ -103,7 +120,7 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = { register, login, getUser, getUserById, getAllUsers, logout, putUser, deleteUser }
+module.exports = { register, login, getUser, getUserById, getAllUsers, joinOffer, logout, putUser, deleteUser }
 
 
 
