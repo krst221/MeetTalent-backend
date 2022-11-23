@@ -1,7 +1,6 @@
 {
   "name": "meettalent-backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "abbrev": "^1.1.1",
@@ -226,13 +225,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/krst221/mail-backend.git"
+    "url": "git+https://github.com/krst221/meettalent-backend.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/krst221/mail-backend/issues"
+    "url": "https://github.com/krst221/meettalent-backend/issues"
   },
-  "homepage": "https://github.com/krst221/mail-backend#readme"
+  "homepage": "https://github.com/krst221/meettalent-backend#readme",
+  "description": ""
 }
