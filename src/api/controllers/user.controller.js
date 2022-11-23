@@ -75,10 +75,10 @@ const joinOffer = async (req, res) => {
         let user = await User.findById(uId);
         let offer = await Offer.findById(oId);
         const findOffer = await User.find({$and: [{_id: user._id},{offers: offer._id}]});
-        if(findOffer.length > 0) return res.status(500).json(error);
+        if(findOffer.length > 0 || offer.processnum === 100) return res.status(500).json(error);
         else {
             user = await User.updateOne({_id: user._id}, {$push: {offers: oId}});
-            offer = await Offer.updateOne({_id: offer._id}, {$push: {users: uId}});
+            offer = await Offer.updateOne({_id: offer._id}, {$inc: {inscribed: 1}, $push: {users: uId}});
             return res.status(200).json({user: user, offer: offer});
         }
     } catch (error) {
