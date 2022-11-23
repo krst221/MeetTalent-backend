@@ -11,7 +11,7 @@ const getAllHack = async (req, res) => {
 
 const getHack = async (req, res) => {
     try {
-        const HackInfo = await Hackathon.findById(req.body._id).populate('inbox').populate('outbox');
+        const HackInfo = await Hackathon.findById(req.body._id);
         return res.status(200).json(HackInfo);
     } catch (error) {
         return res.status(500).json(error);
@@ -21,7 +21,7 @@ const getHack = async (req, res) => {
 const getHackById = async (req, res) => {
     try {
         const {Hack_send} = req.body;
-        const HackInfo = await Hackathon.findById(Hack_send).populate('inbox').populate('outbox');
+        const HackInfo = await Hackathon.findById(Hack_send);
         return res.status(200).json(HackInfo);
     } catch (error) {
         return res.status(500).json(error);

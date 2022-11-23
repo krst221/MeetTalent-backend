@@ -6,11 +6,11 @@ const isAuth = (req, res, next) => {
     const token = authorization.split(" ")[1];
 
     if(!token) {
-        return res.status(401).json({message: 'No has puesto token!'});
+        return res.status(401).json({message: 'Token not found!'});
     }
 
     if(!authorization) {
-        return res.status(401).json({message: 'Donde vas flipao'});
+        return res.status(401).json({message: 'Access not allowed'});
     }
 
     try {

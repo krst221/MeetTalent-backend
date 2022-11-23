@@ -11,7 +11,7 @@ const getAllOffers = async (req, res) => {
 
 const getOffer = async (req, res) => {
     try {
-        const OfferInfo = await Offer.findById(req.body._id).populate('inbox').populate('outbox');
+        const OfferInfo = await Offer.findById(req.body._id);
         return res.status(200).json(OfferInfo);
     } catch (error) {
         return res.status(500).json(error);
@@ -21,7 +21,7 @@ const getOffer = async (req, res) => {
 const getOfferById = async (req, res) => {
     try {
         const {Offer_send} = req.body;
-        const OfferInfo = await Offer.findById(Offer_send).populate('inbox').populate('outbox');
+        const OfferInfo = await Offer.findById(Offer_send);
         return res.status(200).json(OfferInfo);
     } catch (error) {
         return res.status(500).json(error);

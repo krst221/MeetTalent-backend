@@ -4,6 +4,7 @@ const { connect } = require('./src/utils/db');
 const cors = require('cors');
 
 const userRouter = require('./src/api/routes/user.routes');
+const companyRouter = require('./src/api/routes/company.routes');
 const messageRouter = require('./src/api/routes/message.routes');
 const offerRouter = require('./src/api/routes/offer.routes');
 const hackRouter = require('./src/api/routes/hackathon.routes');
@@ -31,6 +32,8 @@ app.use(express.urlencoded({ extended: false }));
 
 
 app.use('/user', userRouter);
+
+app.use('/company', companyRouter);
 
 app.use('/message', messageRouter);
 

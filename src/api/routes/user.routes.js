@@ -10,8 +10,7 @@ router.post('/login', login);
 router.post('/getUser', [isAuth], getUser);
 router.post('/getUser/id', [isAuth], getUserById);
 router.post('/logout', logout);
-router.put('/name', [isAuth], putUserName);
-router.put('/picture', [isAuth], putUserPicture);
-router.put('/', [isAuth], deleteUser);
+router.put('/edit', [isAuth], putUser);
+router.put('/delete', [isAuth], deleteUser);
 
 module.exports = router;

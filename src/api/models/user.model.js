@@ -21,7 +21,8 @@ const UserSchema = new Schema({
     studies: [{degree: {type: String}, location: {type: String}, type: {type: String}}],
     tags: [{type: String}],
     inbox: [{type: Schema.Types.ObjectId, ref: "Message"}],
-    outbox: [{type: Schema.Types.ObjectId, ref: "Message"}]
+    outbox: [{type: Schema.Types.ObjectId, ref: "Message"}],
+    offers: [{type: Schema.Types.ObjectId, ref: "Offer"}],
 },{
     timestamps: true
 }
