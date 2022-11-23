@@ -17,7 +17,6 @@ const UserSchema = new Schema({
     age: {type: Number},
     phone: {type: String},
     password: {type: String, required: true},
-    role: {type: String, required: true},
     studies: [{degree: {type: String}, location: {type: String}, type: {type: String}}],
     tags: [{type: String}],
     inbox: [{type: Schema.Types.ObjectId, ref: "Message"}],

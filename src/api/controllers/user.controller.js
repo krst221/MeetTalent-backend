@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const Offer = require('../models/offer.model');
 const bcrypt = require('bcrypt');
 const {generateSign} = require('../../jwt/jwt');
 const { validationPassword, validationEmail } = require('../../validators/validation');
@@ -68,7 +69,7 @@ const getUserById = async (req, res) => {
     }
 }
 
-const logout = async (res) => {
+const logout = async (req, res) => {
     try {
         return res.status(200).json({token: null});
     } catch (error) {

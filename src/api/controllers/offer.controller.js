@@ -1,4 +1,19 @@
 const Offer = require('../models/offer.model');
+const Company = require('../models/company.model');
+const User = require('../models/user.model');
+
+const addOffer = async (req, res) => {
+    try {
+        const {cID} = req.body;
+        const newOffer = new Offer (req.body);
+        let company = await Company.findById(cID);
+        company = await Company.updateOne({_id: company.id}, {$push: {offers: newOffer._id}});
+        const createdOffer = await newOffer.save();
+        return res.status(200).json(createdOffer);
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+};
 
 const getAllOffers = async (req, res) => {
     try {
@@ -41,7 +56,7 @@ const deleteOffer = async (req, res) => {
     }
 };
 
-module.exports = { register, login, getOffer, getOfferById, getAllOffers, logout, putOfferName, putOfferPicture, deleteOffer }
+module.exports = { addOffer, getOffer, getOfferById, getAllOffers, deleteOffer }
 
 
 

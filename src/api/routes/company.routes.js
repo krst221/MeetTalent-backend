@@ -3,6 +3,7 @@ const router = express.Router()
 const {isAuth} = require('../../middlewares/auth');
 
 const {register, login, getCompany, getCompanyById, logout, deleteCompany} = require('../controllers/company.controller')
+
 router.post('/register', register);
 router.post('/login', login);
 router.post('/getCompany', [isAuth], getCompany);

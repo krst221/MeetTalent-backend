@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const {isAuth} = require('../../middlewares/auth');
+const {isAuth, isCompany} = require('../../middlewares/auth');
 
-const {getAllOffers, getOffer, getOfferById, deleteOffer} = require('../controllers/Offer.controller')
+const {addOffer, getAllOffers, getOffer, getOfferById, deleteOffer} = require('../controllers/Offer.controller')
 
-router.post('/getAllOffers', [isAuth], getAllOffers);
+router.get('/getAllOffers', [isAuth], getAllOffers);
+router.post('/', [isCompany], addOffer);
 router.post('/getOffer', [isAuth], getOffer);
 router.post('/getOffer/id', [isAuth], getOfferById);
-router.put('/', [isAuth], deleteOffer);
+router.put('/', [isCompany], deleteOffer);
 
 module.exports = router;
