@@ -26,17 +26,29 @@ const register = async (req, res, next) => {
     }
 };
 
-const login = async (req, res, next) => {
+const login = async (req, res) => {
     try {
         const UserInfo = await User.findOne({email: req.body.email}).populate('inbox').populate('outbox').populate('offers');
-        if(!UserInfo) return res.status(400).json({message: 'No se encuentra el mail'});
-        if(bcrypt.compareSync(req.body.password, UserInfo.password)){
-            const token = generateSign(UserInfo._id, UserInfo.email);
-            UserInfo.password = null;
-            return res.status(200).json({token: token, user: UserInfo});
+        if(!UserInfo) {
+            const CompanyInfo = await Company.findOne({email: req.body.email}).populate('offers');
+            if(!CompanyInfo) return res.status(400).json({message: 'No se encuentra el mail'});
+            else {
+                if(bcrypt.compareSync(req.body.password, CompanyInfo.password)){
+                    const token = generateSign(CompanyInfo._id, CompanyInfo.email);
+                    CompanyInfo.password = null;
+                    return res.status(200).json({token: token, user: CompanyInfo});
+                }
+                else return res.status(400).json({message: 'Contraseña incorrecta'});
+            }
         }
-        else return res.status(400).json({message: 'Contraseña incorrecta'});
-        next();
+        else {
+            if(bcrypt.compareSync(req.body.password, UserInfo.password)){
+                const token = generateSign(UserInfo._id, UserInfo.email);
+                UserInfo.password = null;
+                return res.status(200).json({token: token, user: UserInfo});
+            }
+            else return res.status(400).json({message: 'Contraseña incorrecta'});
+        }
     } catch (error) {
         return res.status(500).json(error);
     }

@@ -24,22 +24,6 @@ const register = async (req, res, next) => {
     }
 };
 
-const login = async (req, res, next) => {
-    try {
-        const CompanyInfo = await Company.findOne({email: req.body.email}).populate('offers');
-        if(!CompanyInfo) return res.status(400).json({message: 'No se encuentra el mail'});
-        if(bcrypt.compareSync(req.body.password, CompanyInfo.password)){
-            const token = generateSign(CompanyInfo._id, CompanyInfo.email);
-            CompanyInfo.password = null;
-            return res.status(200).json({token: token, Company: CompanyInfo});
-        }
-        else return res.status(400).json({message: 'Contraseña incorrecta'});
-        next();
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-}
-
 const getCompany = async (req, res) => {
     try {
         const CompanyInfo = await Company.findById(req.body._id).populate('inbox').populate('outbox');
@@ -59,14 +43,6 @@ const getCompanyById = async (req, res) => {
     }
 }
 
-const logout = async (req, res) => {
-    try {
-        return res.status(200).json({token: null});
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-}
-
 const deleteCompany = async (req, res) => {
     try {
         const { _id } = req.body;
@@ -80,7 +56,7 @@ const deleteCompany = async (req, res) => {
     }
 };
 
-module.exports = { register, login, getCompany, getCompanyById, logout, deleteCompany }
+module.exports = { register, getCompany, getCompanyById, logout, deleteCompany }
 
 
 
