@@ -26,7 +26,7 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
     try {
-        const CompanyInfo = await Company.findOne({email: req.body.email});
+        const CompanyInfo = await Company.findOne({email: req.body.email}).populate('offers');
         if(!CompanyInfo) return res.status(400).json({message: 'No se encuentra el mail'});
         if(bcrypt.compareSync(req.body.password, CompanyInfo.password)){
             const token = generateSign(CompanyInfo._id, CompanyInfo.email);

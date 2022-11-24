@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const Company = require('../models/company.model');
 const Offer = require('../models/offer.model');
 const bcrypt = require('bcrypt');
 const {generateSign} = require('../../jwt/jwt');
@@ -27,7 +28,7 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
     try {
-        const UserInfo = await User.findOne({email: req.body.email}).populate('inbox').populate('outbox');
+        const UserInfo = await User.findOne({email: req.body.email}).populate('inbox').populate('outbox').populate('offers');
         if(!UserInfo) return res.status(400).json({message: 'No se encuentra el mail'});
         if(bcrypt.compareSync(req.body.password, UserInfo.password)){
             const token = generateSign(UserInfo._id, UserInfo.email);
@@ -106,6 +107,47 @@ const putUser = async (req, res) => {
     }
 };
 
+const emailExists = async (req, res) => {
+    try {
+        const UserInfo = await User.findOne({email: req.body.email});
+        if(!UserInfo) {
+            const CompanyInfo = await Company.findOne({email: req.body.email});
+            if(!CompanyInfo) return res.status(400).json({message: 'No se encuentra el mail'});
+            else return res.status(200).json(CompanyInfo.email);
+        }
+        else return res.status(200).json(UserInfo.email);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+}
+
+const recoverPassword = async (req, res, next) => {
+    try {
+        let UserInfo = await User.findOne({email: req.body.email});
+        if(!UserInfo) {
+            let CompanyInfo = await Company.findOne({email: req.body.email});
+            if(!validationPassword(req.body.password)){
+                console.log({code: 403, message: "Invalid password"})
+                return next();
+            }
+            newPassword = bcrypt.hashSync(req.body.password, 10);
+            CompanyInfo = await Company.updateOne({_id: CompanyInfo._id}, {password: newPassword});
+            return res.status(200).json(CompanyInfo);
+        }
+        else {
+            if(!validationPassword(req.body.password)){
+                console.log({code: 403, message: "Invalid password"})
+                return next();
+            }
+            newPassword = bcrypt.hashSync(req.body.password, 10);
+            UserInfo = await User.updateOne({_id: UserInfo._id}, {password: newPassword});
+            return res.status(200).json(UserInfo);
+
+        }
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+};
 
 const deleteUser = async (req, res) => {
     try {
@@ -120,7 +162,7 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = { register, login, getUser, getUserById, getAllUsers, joinOffer, logout, putUser, deleteUser }
+module.exports = { register, login, getUser, getUserById, getAllUsers, joinOffer, logout, putUser, emailExists, recoverPassword, deleteUser }
 
 
 
