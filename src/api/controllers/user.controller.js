@@ -108,12 +108,44 @@ const logout = async (req, res) => {
 }
 
 const putUser = async (req, res) => {
+    const {_id} = req.body;
     try {
         const UserDb = await User.findByIdAndUpdate(_id, req.body);
         if (!UserDb) {
             return res.status(404).json({"message": "User not found"});
         }
             return res.status(200).json(UserDb);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+};
+
+const putUserValue = async (req, res) => {
+    const {_id} = req.body;
+    try {
+        const UserDb = await User.findByIdAndUpdate(_id, req.body);
+        if (!UserDb) return res.status(404).json({"message": "User not found"});
+        return res.status(200).json(UserDb);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+};
+
+const putUserArray = async (req, res) => {
+    const ed = Object.keys(req.body)[0];
+    console.log(ed);
+    console.log(req.body.tags);
+    const {_id} = req.body;
+    try {
+        if(ed === 'tags') {
+            const UserDb = await User.updateOne({_id: _id}, {$push: {tags: req.body.tags}});
+        }
+        else {
+            const UserDb = await User.updateOne({_id: _id}, {$push: {studies: req.body.studies}});
+        }
+        if (!UserDb) return res.status(404).json({"message": "User not found"});
+        console.log(UserDb);
+        return res.status(200).json(UserDb);
     } catch (error) {
         return res.status(500).json(error);
     }
@@ -174,7 +206,7 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = { register, login, getUser, getUserById, getAllUsers, joinOffer, logout, putUser, emailExists, changePassword, deleteUser }
+module.exports = { register, login, getUser, getUserById, getAllUsers, joinOffer, logout, putUser, putUserValue, putUserArray, emailExists, changePassword, deleteUser }
 
 
 
