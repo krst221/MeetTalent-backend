@@ -133,7 +133,7 @@ const emailExists = async (req, res) => {
     }
 }
 
-const recoverPassword = async (req, res, next) => {
+const changePassword = async (req, res, next) => {
     try {
         let UserInfo = await User.findOne({email: req.body.email});
         if(!UserInfo) {
@@ -174,7 +174,7 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = { register, login, getUser, getUserById, getAllUsers, joinOffer, logout, putUser, emailExists, recoverPassword, deleteUser }
+module.exports = { register, login, getUser, getUserById, getAllUsers, joinOffer, logout, putUser, emailExists, changePassword, deleteUser }
 
 
 
