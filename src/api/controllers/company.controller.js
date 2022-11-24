@@ -56,7 +56,7 @@ const deleteCompany = async (req, res) => {
     }
 };
 
-module.exports = { register, getCompany, getCompanyById, logout, deleteCompany }
+module.exports = { register, getCompany, getCompanyById, deleteCompany }
 
 
 
