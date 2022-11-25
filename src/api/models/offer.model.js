@@ -11,7 +11,7 @@ const OfferSchema = new Schema({
     vacancies: {type: Number, required: true},
     language: {type: String, required: true},
     location: {city: {type: String, required: true}, country: {type: String, required: true}},
-    conditions: {salary: {type: Number, required: true}, shift: {type: String, required: true}, contract: {type: String, required: true}},
+    conditions: {salary: {type: Number, required: true}, shift: {type: String, required: true}, contract: {type: String, required: true}, availability: {type: String, required: true}},
     startdate: {type: Date},
     processnum: {type: Number, default: 0},
     inscribed: {type: Number, default: 0},
