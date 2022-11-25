@@ -136,12 +136,13 @@ const putUserArray = async (req, res) => {
     console.log(ed);
     console.log(req.body.tags);
     const {_id} = req.body;
+    let UserDb = await User.findById(_id);
     try {
         if(ed === 'tags') {
-            const UserDb = await User.updateOne({_id: _id}, {$push: {tags: req.body.tags}});
+            UserDb = await User.updateOne({_id: _id}, {$push: {tags: req.body.tags}});
         }
         else {
-            const UserDb = await User.updateOne({_id: _id}, {$push: {studies: req.body.studies}});
+            UserDb = await User.updateOne({_id: _id}, {$push: {studies: req.body.studies}});
         }
         if (!UserDb) return res.status(404).json({"message": "User not found"});
         console.log(UserDb);
