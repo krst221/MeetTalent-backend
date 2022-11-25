@@ -4,7 +4,7 @@ const {isAuth, isCompany} = require('../../middlewares/auth');
 
 const {addOffer, closeOffer, getAllOffers, getOffer, getOfferById, deleteOffer} = require('../controllers/Offer.controller')
 
-router.get('/getAllOffers', [isAuth], getAllOffers);
+router.get('/getAll', [isAuth], getAllOffers);
 router.post('/add', [isCompany], addOffer);
 router.post('/getOffer', [isAuth], getOffer);
 router.post('/getOffer/id', [isAuth], getOfferById);

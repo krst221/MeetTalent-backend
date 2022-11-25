@@ -32,6 +32,7 @@ const closeOffer = async (req, res) => {
 const getAllOffers = async (req, res) => {
     try {
         const allOffers = await Offer.find();
+        console.log(allOffers);
         return res.status(200).json(allOffers);
     } catch (error) {
         return res.status(500).json(error)
