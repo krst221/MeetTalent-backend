@@ -24,10 +24,11 @@ const register = async (req, res, next) => {
     }
 };
 
-const getCompany = async (req, res) => {
+const getCompanyName = async (req, res) => {
     try {
-        const CompanyInfo = await Company.findById(req.body._id).populate('inbox').populate('outbox');
-        return res.status(200).json(CompanyInfo);
+        console.log(req.body);
+        const CompanyInfo = await Company.findById(req.body._id);
+        return res.status(200).json(CompanyInfo.name);
     } catch (error) {
         return res.status(500).json(error);
     }
@@ -36,7 +37,7 @@ const getCompany = async (req, res) => {
 const getCompanyById = async (req, res) => {
     try {
         const {Company_send} = req.body;
-        const CompanyInfo = await Company.findById(Company_send).populate('inbox').populate('outbox');
+        const CompanyInfo = await Company.findById(Company_send).populate('offers');
         return res.status(200).json(CompanyInfo);
     } catch (error) {
         return res.status(500).json(error);
@@ -56,7 +57,7 @@ const deleteCompany = async (req, res) => {
     }
 };
 
-module.exports = { register, getCompany, getCompanyById, deleteCompany }
+module.exports = { register, getCompanyName, getCompanyById, deleteCompany }
 
 
 
