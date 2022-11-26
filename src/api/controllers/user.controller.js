@@ -65,17 +65,8 @@ const getAllUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        const UserInfo = await User.findById(req.body._id).populate('inbox').populate('outbox');
-        return res.status(200).json(UserInfo);
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-}
-
-const getUserById = async (req, res) => {
-    try {
-        const {user_send} = req.body;
-        const UserInfo = await User.findById(user_send).populate('inbox').populate('outbox');
+        console.log(req.body.id);
+        const UserInfo = await User.findById(req.body.id).populate('inbox').populate('outbox');
         return res.status(200).json(UserInfo);
     } catch (error) {
         return res.status(500).json(error);
@@ -108,9 +99,11 @@ const logout = async (req, res) => {
 }
 
 const putUser = async (req, res) => {
-    const {_id} = req.body;
     try {
-        const UserDb = await User.findByIdAndUpdate(_id, req.body);
+        const {_id} = req.body;
+        const user1 = await User.findById(_id);
+        letUserDb = await User.findByIdAndUpdate(_id, req.body);
+        UserDb = await User.findByIdAndUpdate(_id, {password: user1.password})
         if (!UserDb) {
             return res.status(404).json({"message": "User not found"});
         }
@@ -121,9 +114,11 @@ const putUser = async (req, res) => {
 };
 
 const putUserValue = async (req, res) => {
-    const {_id} = req.body;
     try {
-        const UserDb = await User.findByIdAndUpdate(_id, req.body);
+        const {_id} = req.body;
+        const user1 = await User.findById(_id);
+        let UserDb = await User.findByIdAndUpdate(_id, req.body);
+        UserDb = await User.findByIdAndUpdate(_id, {password: user1.password})
         if (!UserDb) return res.status(404).json({"message": "User not found"});
         return res.status(200).json(UserDb);
     } catch (error) {
@@ -132,20 +127,19 @@ const putUserValue = async (req, res) => {
 };
 
 const putUserArray = async (req, res) => {
-    const ed = Object.keys(req.body)[0];
-    console.log(ed);
-    console.log(req.body.tags);
-    const {_id} = req.body;
-    let UserDb = await User.findById(_id);
     try {
+        const ed = Object.keys(req.body)[0];
+        const {_id} = req.body;
+        const user1 = await User.findById(_id);
+        let UserDb = await User.findById(_id);
         if(ed === 'tags') {
             UserDb = await User.updateOne({_id: _id}, {$push: {tags: req.body.tags}});
         }
         else {
             UserDb = await User.updateOne({_id: _id}, {$push: {studies: req.body.studies}});
         }
+        UserDb = await User.updateOne({_id: _id}, {password: user1.password})
         if (!UserDb) return res.status(404).json({"message": "User not found"});
-        console.log(UserDb);
         return res.status(200).json(UserDb);
     } catch (error) {
         return res.status(500).json(error);
@@ -207,7 +201,7 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = { register, login, getUser, getUserById, getAllUsers, joinOffer, logout, putUser, putUserValue, putUserArray, emailExists, changePassword, deleteUser }
+module.exports = { register, login, getUser, getAllUsers, joinOffer, logout, putUser, putUserValue, putUserArray, emailExists, changePassword, deleteUser }
 
 
 
