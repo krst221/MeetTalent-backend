@@ -41,7 +41,7 @@ app.use('/offer', offerRouter);
 
 app.use('/hack', hackRouter);
 
-app.use('*', (res) => res.status(404).json('La ruta seleccionada no existe.'));
+app.use('*', (req, res) => res.status(404).json('La ruta seleccionada no existe.'));
 
 app.use((error, res) => {
 
