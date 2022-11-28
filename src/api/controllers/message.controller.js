@@ -3,7 +3,7 @@ const User = require('../models/user.model');
 
 const getMessage = async (req, res) => {
     try {
-        const MessageInfo = await Message.findById(req.body);
+        const MessageInfo = await Message.findById(req.body.id);
         return res.status(200).json(MessageInfo);
     } catch (error) {
         return res.status(500).json(error);
