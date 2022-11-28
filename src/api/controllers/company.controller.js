@@ -37,7 +37,6 @@ const getCompanyById = async (req, res) => {
     try {
         const {_id} = req.body;
         const CompanyInfo = await Company.findById(_id);
-        console.log(CompanyInfo);
         if(!CompanyInfo) return res.status(200).json('false');
         return res.status(200).json('true');
     } catch (error) {
