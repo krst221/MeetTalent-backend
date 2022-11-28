@@ -17,7 +17,7 @@ const addOffer = async (req, res) => {
 const closeOffer = async (req, res) => {
     try {
         const {oId} = req.body;
-        const offer = await Offer.findByIdAndUpdate(oId, {processnum: 100, finalists: Math.floor(Math.random()*inscribed)});
+        const offer = await Offer.findByIdAndUpdate(oId, {processnum: 100});
         console.log(offer);  
         const newusers = await User.updateMany({offers: offer._id}, {$pull: {offers: offer._id}})
         return res.status(200).json(newusers);
