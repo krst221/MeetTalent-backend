@@ -26,7 +26,7 @@ const register = async (req, res, next) => {
 
 const getCompanyName = async (req, res) => {
     try {
-        const CompanyInfo = await Company.findById(req.body.company);
+        const CompanyInfo = await Company.findById(req.body.id);
         return res.status(200).json(CompanyInfo.name);
     } catch (error) {
         return res.status(500).json(error);

@@ -15,6 +15,7 @@ const UserSchema = new Schema({
     email: {type: String, required: true},
     location: {city: {type: String, required: true}, zip: {type: Number}, detail: {type: String}},
     age: {type: Number},
+    isCompany: {type: Boolean, required: true, default: false},
     phone: {type: String},
     password: {type: String, required: true},
     studies: [{degree: {type: String}, location: {type: String}, type: {type: String}}],
