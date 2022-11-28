@@ -6,7 +6,7 @@ const {register, getCompanyName, getCompanyById, deleteCompany} = require('../co
 
 router.post('/register', register);
 router.post('/get', [isAuth], getCompanyName);
-router.post('/get/id', [isCompany], getCompanyById);
+router.post('/get/id', [isAuth], getCompanyById);
 router.put('/delete', [isCompany], deleteCompany);
 
 module.exports = router;

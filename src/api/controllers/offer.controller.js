@@ -16,14 +16,11 @@ const addOffer = async (req, res) => {
 
 const closeOffer = async (req, res) => {
     try {
-        const {cId, oId} = req.body;
-        const offer = await Offer.findByIdAndUpdate(oId, {processnum: 100} );
-        if(JSON.parse(JSON.stringify(offer.company)) == cId){
-            console.log(offer._id);
-            const newusers = await User.updateMany({offers: offer._id}, {$pull: {offers: offer._id}})
-            return res.status(200).json(newusers);
-        }
-        else return res.status(500).json(error);
+        const {oId} = req.body;
+        const offer = await Offer.findByIdAndUpdate(oId, {processnum: 100, finalists: Math.floor(Math.random()*inscribed)});
+        console.log(offer);  
+        const newusers = await User.updateMany({offers: offer._id}, {$pull: {offers: offer._id}})
+        return res.status(200).json(newusers);
     } catch (error) {
         return res.status(500).json(error);
     }

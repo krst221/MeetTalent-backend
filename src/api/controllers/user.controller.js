@@ -66,7 +66,7 @@ const getAllUsers = async (req, res) => {
 const getUser = async (req, res) => {
     try {
         console.log(req.body.id);
-        const UserInfo = await User.findById(req.body.id).populate('inbox').populate('outbox');
+        const UserInfo = await User.findById(req.body.id).populate('inbox').populate('outbox').populate('offers');
         return res.status(200).json(UserInfo);
     } catch (error) {
         return res.status(500).json(error);

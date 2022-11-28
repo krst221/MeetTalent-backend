@@ -35,9 +35,11 @@ const getCompanyName = async (req, res) => {
 
 const getCompanyById = async (req, res) => {
     try {
-        const {Company_send} = req.body;
-        const CompanyInfo = await Company.findById(Company_send).populate('offers');
-        return res.status(200).json(CompanyInfo);
+        const {_id} = req.body;
+        const CompanyInfo = await Company.findById(_id);
+        console.log(CompanyInfo);
+        if(!CompanyInfo) return res.status(200).json('false');
+        return res.status(200).json('true');
     } catch (error) {
         return res.status(500).json(error);
     }
