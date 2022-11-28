@@ -83,7 +83,8 @@ const joinOffer = async (req, res) => {
         else {
             user = await User.updateOne({_id: user._id}, {$push: {offers: oId}});
             offer = await Offer.updateOne({_id: offer._id}, {$inc: {inscribed: 1}, $push: {users: uId}});
-            return res.status(200).json({user: user, offer: offer});
+            const userSend = await User.findById(uId);
+            return res.status(200).json({user: userSend, offer: offer});
         }
     } catch (error) {
         return res.status(500).json(error);
