@@ -9,7 +9,7 @@ const messageRouter = require('./src/api/routes/message.routes');
 const offerRouter = require('./src/api/routes/offer.routes');
 
 dotenv.config();
-const PORT = 3030 || 8000;
+const PORT = process.env.PORT || 8000;
 const app = express();
 connect();
 
