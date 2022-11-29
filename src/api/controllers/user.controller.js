@@ -1,7 +1,7 @@
 const User = require('../models/user.model');
 const Company = require('../models/company.model');
 const Offer = require('../models/offer.model');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const {generateSign} = require('../../jwt/jwt');
 const { validationPassword, validationEmail } = require('../../validators/validation');
 

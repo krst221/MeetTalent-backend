@@ -16,14 +16,15 @@ connect();
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Method', 'POST, GET, DELETE, PUT, PATCH');
-    res.header('Access-Control-Allow-Credentials', 'false');
+    res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     res.header('Access-Control-Allow-Origin', '*');
     next();
 })
 
 app.use(cors({
-    origin: '*'
+    origin: '*',
+    credentials: 'true'
 }))
 
 app.use(express.json({limit: '5mb'}));
@@ -38,11 +39,6 @@ app.use('/message', messageRouter);
 
 app.use('/offer', offerRouter);
 
-app.get("/", (req, res) => {
-    res.send("Express on Vercel");
-  });
-
-
 app.use('*', (req, res) => res.status(404).json('La ruta seleccionada no existe.'));
 
 app.use((error, res) => {
@@ -51,6 +47,4 @@ app.use((error, res) => {
 
 })
 
-app.listen(3030, () => console.log(`listening on port 3030`));
-
-module.exports = app;
+app.listen(PORT, () => console.log(`listening on port 3030`));
