@@ -16,7 +16,7 @@ connect();
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Method', 'POST, GET, DELETE, PUT, PATCH');
-    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Credentials', 'false');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     res.header('Access-Control-Allow-Origin', '*');
     next();
@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 
 app.use(cors({
     origin: ['http://localhost:3000', 'https://meettalent.vercel.app/'],
-    credentials: 'true'
+    credentials: 'false'
 }))
 
 app.use(express.json({limit: '5mb'}));
@@ -38,10 +38,6 @@ app.use('/company', companyRouter);
 app.use('/message', messageRouter);
 
 app.use('/offer', offerRouter);
-
-app.get("/", (req, res) => {
-    res.send("Express on Vercel");
-});
 
 app.use('*', (req, res) => res.status(404).json('La ruta seleccionada no existe.'));
 
