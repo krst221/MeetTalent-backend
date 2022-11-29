@@ -39,6 +39,10 @@ app.use('/message', messageRouter);
 
 app.use('/offer', offerRouter);
 
+app.get("/", (req, res) => {
+    res.send("Express on Vercel");
+});
+
 app.use('*', (req, res) => res.status(404).json('La ruta seleccionada no existe.'));
 
 app.use((error, res) => {
