@@ -5,13 +5,10 @@ const bcrypt = require('bcrypt')
 const Schema = mongoose.Schema
 
 
-const MailSchema = new Schema({
-
-//Name entra como email/username para logear
-
+const MessageSchema = new Schema({
+    
     user_send: {type: Schema.Types.ObjectId, ref: "User"},
     user_receive: {type: Schema.Types.ObjectId, ref: "User"},
-    title: {type: String, required: true},
     text: {type: String, required: true},
 },{
     timestamps: true
@@ -19,6 +16,6 @@ const MailSchema = new Schema({
     
 );
 
-const Mail = mongoose.model('Mail', MailSchema)
+const Message = mongoose.model('Message', MessageSchema)
 
-module.exports = Mail
+module.exports = Message

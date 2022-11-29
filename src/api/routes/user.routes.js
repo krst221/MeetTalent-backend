@@ -2,16 +2,19 @@ const express = require('express')
 const router = express.Router()
 const {isAuth} = require('../../middlewares/auth');
 
-const {register, login, getUser, getUserById, getAllUsers, logout, putUserName, putUserPicture, deleteUser} = require('../controllers/user.controller')
+const {register, login, getUser, joinOffer, getAllUsers, logout, putUser, putUserValue, putUserArray, emailExists, changePassword, deleteUser} = require('../controllers/user.controller')
 
-router.get('/', [isAuth], getAllUsers);
+router.get('/all', [isAuth], getAllUsers);
 router.post('/register', register);
 router.post('/login', login);
+router.post('/mail', emailExists);
 router.post('/getUser', [isAuth], getUser);
-router.post('/getUser/id', [isAuth], getUserById);
+router.post('/join', [isAuth], joinOffer);
 router.post('/logout', logout);
-router.put('/name', [isAuth], putUserName);
-router.put('/picture', [isAuth], putUserPicture);
-router.put('/', [isAuth], deleteUser);
+router.put('/edit', [isAuth], putUser);
+router.put('/editValue', [isAuth], putUserValue);
+router.put('/editArray', [isAuth], putUserArray);
+router.put('/change', changePassword);
+router.put('/delete', [isAuth], deleteUser);
 
 module.exports = router;
