@@ -11,6 +11,7 @@ const CompanySchema = new Schema({
     ID: {type: String, required: true},
     location: {city: {type: String, required: true}, zip: {type: Number}, detail: {type: String}},
     isCompany: {type: Boolean, required: true, default: true},
+    phone: {type: String},
     picture: {type: String, required: true, default: 'https://happytravel.viajes/wp-content/uploads/2020/04/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'},
     email: {type: String, required: true},
     password: {type: String, required: true},
