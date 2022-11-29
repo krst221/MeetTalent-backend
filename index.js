@@ -17,7 +17,7 @@ connect();
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Method', 'POST, GET, DELETE, PUT, PATCH');
     res.header('Access-Control-Allow-Credentials', 'false');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Origin, Accept');
     res.header('Access-Control-Allow-Origin', '*');
     next();
 })
