@@ -7,7 +7,6 @@ const userRouter = require('./src/api/routes/user.routes');
 const companyRouter = require('./src/api/routes/company.routes');
 const messageRouter = require('./src/api/routes/message.routes');
 const offerRouter = require('./src/api/routes/offer.routes');
-const hackRouter = require('./src/api/routes/hackathon.routes');
 
 dotenv.config();
 const PORT = process.env.PORT || 8000;
@@ -39,7 +38,6 @@ app.use('/message', messageRouter);
 
 app.use('/offer', offerRouter);
 
-app.use('/hack', hackRouter);
 
 app.use('*', (req, res) => res.status(404).json('La ruta seleccionada no existe.'));
 
