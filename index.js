@@ -13,6 +13,9 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 connect();
 
+app.get("/", (req, res) => {
+    res.send("Express on Vercel");
+  });
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Method', 'POST, GET, DELETE, PUT, PATCH');
