@@ -102,12 +102,17 @@ const putUser = async (req, res) => {
     try {
         const {_id} = req.body;
         const user1 = await User.findById(_id);
-        letUserDb = await User.findByIdAndUpdate(_id, req.body);
-        UserDb = await User.findByIdAndUpdate(_id, {password: user1.password})
-        if (!UserDb) {
-            return res.status(404).json({"message": "User not found"});
+        if(!user1){
+            const comp1 = await Company.findById(_id);
+            let CompDb = await Company.findByIdAndUpdate(_id, req.body);
+            CompDb = await Company.findByIdAndUpdate(_id, {password: comp1.password})
+            return res.status(200).json(CompDb);
+        } 
+        else {
+            let UserDb = await User.findByIdAndUpdate(_id, req.body);
+            UserDb = await User.findByIdAndUpdate(_id, {password: user1.password})
+            return res.status(200).json(UserDb);  
         }
-            return res.status(200).json(UserDb);
     } catch (error) {
         return res.status(500).json(error);
     }
