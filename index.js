@@ -38,6 +38,10 @@ app.use('/message', messageRouter);
 
 app.use('/offer', offerRouter);
 
+app.get("/", (req, res) => {
+    res.send("Express on Vercel");
+  });
+
 
 app.use('*', (req, res) => res.status(404).json('La ruta seleccionada no existe.'));
 
@@ -47,4 +51,6 @@ app.use((error, res) => {
 
 })
 
-app.listen(PORT, () => console.log(`listening on port: http://localhost:${PORT}`));
+app.listen(3030, () => console.log(`listening on port 3030`));
+
+module.exports = app;
