@@ -14,7 +14,7 @@ const app = express();
 connect();
 
 app.get("/", (req, res) => {
-    res.send("Express on Vercel");
+    res.send("Meettalent Backend Server");
   });
 
 app.use((req, res, next) => {
